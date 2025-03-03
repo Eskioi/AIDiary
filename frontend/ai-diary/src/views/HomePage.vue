@@ -1,6 +1,7 @@
 <template>
     <div>
-      <h1>word</h1>
+      <h1>Today's News
+      </h1>
     </div>
   </template>
   
