@@ -1,4 +1,4 @@
-# ai-diary
+# ai_diary
 
 ## Project setup
 ```
