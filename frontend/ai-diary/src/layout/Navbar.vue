@@ -13,6 +13,11 @@
           <li><router-link to="/Selection" @click="closeMenu">Article selection</router-link></li>
         </ul>
       </div>
+
+      <!-- Bottom Section with Login Link -->
+      <div :class="['navbar-bottom', { 'nav-active': isMenuOpen }]">
+        <router-link to="/Login" class="login-link" @click="closeMenu">Login</router-link>
+      </div>
     </div>
   </nav>
 </template>
@@ -50,18 +55,20 @@ export default {
 }
 
 .navbar-collapsed {
-  width: 5rem;
+  width: 5.5%;
 }
 
 .navbar:not(.navbar-collapsed) {
-  width: 15%;
+  width: 12%;
 }
 
 .navbar-container {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: flex-start;
   padding: 1rem;
+  height: 100%;
 }
 
 .navbar-top {
@@ -103,21 +110,34 @@ export default {
   padding: 0.5rem 0;
 }
 
-.nav-links a {
+.nav-links a, .login-link {
   text-decoration: none;
   color: #333;
   font-weight: 500;
-  padding: 0.5rem;
+  padding: 5%;
   border-radius: 8px;
   white-space: nowrap;
   transition: background-color 0.2s ease, padding 0.2s ease;
 }
 
-.nav-links a:hover {
+.nav-links a:hover, .login-link:hover {
   background-color: #b0b0b0;
   border-radius: 8px;
   padding: 0.75rem;
 }
+
+.navbar-bottom {
+  margin-top: auto;
+  margin: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease, max-height 0.3s ease;
+}
+
+.navbar-bottom.nav-active {
+  opacity: 1;
+  max-height: 500px;
+}
+
 </style>
 
-<!-- Let me know if you want me to tweak anything else! -->
+<!-- Let me know if you want any adjustments! -->
