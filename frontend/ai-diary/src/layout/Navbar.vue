@@ -1,142 +1,123 @@
 <template>
-    <nav class="navbar">
-      <div class="navbar-container">
-        <!-- Menu Button for Mobile -->
-        <button class="menu-button" @click="toggleMenu">
-          ☰
-        </button>
+  <nav :class="['navbar', { 'navbar-collapsed': !isMenuOpen }]" @mouseenter="openMenu" @mouseleave="closeMenu">
+    <div class="navbar-container">
+      <!-- Top Section with Home Icon and Links -->
+      <div class="navbar-top">
+        <!-- Google Home Icon -->
+        <router-link to="/" class="home-icon" @click="closeMenu">
+          <span class="material-icons">home</span>
+        </router-link>
+        
         <!-- Navigation Links -->
         <ul :class="['nav-links', { 'nav-active': isMenuOpen }]">
-          <li><router-link to="/" @click="closeMenu">Home</router-link></li>
-          <li><router-link to="/Home" @click="closeMenu">Previous articles</router-link></li>
+          <li><router-link to="/Selection" @click="closeMenu">Article selection</router-link></li>
         </ul>
       </div>
-    </nav>
-  </template>
-  
-  <script>
-    export default {
-    name: "AppNavbar",
-    data() {
-        return {
-        isMenuOpen: false, // Initialize the menu state
-        };
-    },
-    methods: {
-        toggleMenu() {
-        this.isMenuOpen = !this.isMenuOpen; // Toggle the menu state
-        },
-        closeMenu() {
-        this.isMenuOpen = false; // Close the menu
-        },
-    },
-    };
-    </script>
+    </div>
+  </nav>
+</template>
 
-  
-  
-  <style scoped>
-  /* Navbar Container */
-  .navbar {
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 900; /* Ensure this value is higher than other components */
-  }
-  
-  .navbar-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 1rem;
-  }
-  
-  /* Menu Button (Hamburger Icon) */
-  .menu-button {
-    color: #333;
-    display: none;
-    font-size: 1.5rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-  
-  /* Navigation Links */
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 1rem;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .nav-links li {
-    display: inline;
-  }
-  
-  .nav-links a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-  }
-  
-  /* Auth Button */
-  .auth-button {
-    background-color: #007bff;
-    color: #ffffff;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 500;
-  }
-  
-  .auth-button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Responsive Styles */
-  @media (max-width: 768px) {
-    .menu-button {
-      display: block;
-    }
-    .nav-links {
-      display: none;
-      flex-direction: column;
-      width: 100%;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: #ffffff;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    .nav-links.nav-active {
-      display: flex;
-    }
-    .nav-links li {
-      text-align: center;
-      padding: 0.5rem 0;
-    }
-  }
-  
-  
-  .nav-links a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-  }
-  
-  /* Greyed-out Links */
-  .disabled {
-    color: grey;
-    opacity: 0.5;
-    pointer-events: none;
-    cursor: not-allowed;
-  }
-  
-  
-  </style>
+<script>
+export default {
+  name: "AppNavbar",
+  data() {
+    return {
+      isMenuOpen: false,
+    };
+  },
+  methods: {
+    openMenu() {
+      this.isMenuOpen = true;
+    },
+    closeMenu() {
+      this.isMenuOpen = false;
+    },
+  },
+};
+</script>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+.navbar {
+  background-color: #808080;
+  position: fixed;
+  height: 100%;
+  top: 0;
+  overflow: hidden;
+  width: 5%;
+  transition: width 0.3s ease;
+}
+
+.navbar-collapsed {
+  width: 5rem;
+}
+
+.navbar:not(.navbar-collapsed) {
+  width: 15%;
+}
+
+.navbar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem;
+}
+
+.navbar-top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.home-icon .material-icons {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  padding: 0.5rem;
+  transition: background-color 0.2s ease, padding 0.2s ease;
+}
+
+.home-icon:hover .material-icons {
+  background-color: #b0b0b0;
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+.nav-links {
+  list-style: none;
+  opacity: 0;
+  max-height: 0;
+  transition: opacity 0.3s ease, max-height 0.3s ease;
+  gap: 1rem;
+}
+
+.nav-links.nav-active {
+  opacity: 1;
+  max-height: 500px;
+}
+
+.nav-links li {
+  text-align: left;
+  padding: 0.5rem 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 0.5rem;
+  border-radius: 8px;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, padding 0.2s ease;
+}
+
+.nav-links a:hover {
+  background-color: #b0b0b0;
+  border-radius: 8px;
+  padding: 0.75rem;
+}
+</style>
+
+<!-- Let me know if you want me to tweak anything else! -->
