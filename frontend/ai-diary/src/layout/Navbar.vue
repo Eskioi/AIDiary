@@ -4,19 +4,19 @@
       <!-- Top Section with Home Icon and Links -->
       <div class="navbar-top">
         <!-- Google Home Icon -->
-        <router-link to="/" class="home-icon" @click="closeMenu">
+        <router-link to="/" class="home-icon" >
           <span class="material-icons">home</span>
         </router-link>
         
         <!-- Navigation Links -->
         <ul :class="['nav-links', { 'nav-active': isMenuOpen }]">
-          <li><router-link to="/Selection" @click="closeMenu">Article selection</router-link></li>
+          <li><router-link to="/Selection" >Article selection</router-link></li>
         </ul>
       </div>
 
       <!-- Bottom Section with Login Link -->
       <div :class="['navbar-bottom', { 'nav-active': isMenuOpen }]">
-        <router-link to="/Login" class="login-link" @click="closeMenu">Login</router-link>
+        <router-link to="/Login" class="login-link" >Login</router-link>
       </div>
     </div>
   </nav>
