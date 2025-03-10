@@ -1,5 +1,7 @@
 {
     "java.project.sourcePaths": [
         "backend/src"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.compile.nullAnalysis.mode": "disabled"
 }

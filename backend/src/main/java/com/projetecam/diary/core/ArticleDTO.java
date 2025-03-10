@@ -1,14 +1,10 @@
 package com.projetecam.diary.core; 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Data;
 
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
-
-public class ArticleResponseDTO {
+@Data
+public class ArticleDTO {
+    private final long id;
     private Integer type;
     private String headline;
     private String subHeadline1;
