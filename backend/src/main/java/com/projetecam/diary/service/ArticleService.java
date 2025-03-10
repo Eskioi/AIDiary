@@ -1,20 +1,23 @@
 package com.projetecam.diary.service;
 
-import com.projetecam.diary.core.*;
-import com.projetecam.diary.entity.*;
-import com.projetecam.diary.persistence.*;
-import lombok.RequiredArgsConstructor;
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.time.LocalDate;
+import com.projetecam.diary.core.ArticleDTO;
+import com.projetecam.diary.core.CreateArticleDTO;
+import com.projetecam.diary.entity.Article;
+import com.projetecam.diary.persistence.ArticleRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 
 public class ArticleService {
     private final ArticleRepository articleRepository;
+    private final AuthenticationService authenticationService;
 
     public List<ArticleDTO> search(String query, String headline, LocalDate date){
         return articleRepository.search(query, headline, date)
@@ -29,7 +32,8 @@ public class ArticleService {
     }
 
     public ArticleDTO create(CreateArticleDTO createArticleDTO){
-        Article article = new Article(null, authenticationService.creatorUserId(),
+        Article article = new Article(null, authenticationService.currentUserId(),
+            createArticleDTO.getDate(),
             createArticleDTO.getType(),
             createArticleDTO.getHeadline(),
             createArticleDTO.getSubHeadline1(),
@@ -58,10 +62,11 @@ public class ArticleService {
     }
 
     public List<ArticleDTO> getUserArticleDTOs() {
-        return articleRepository.findByCreatorUserId(authenticationService
-            .currentUserId()
+        Long currentUserId = authenticationService.currentUserId();
+        
+        return articleRepository.findByCreatorUserId(currentUserId)
             .stream()
             .map(this::convertToArticleDto)
-            .toList());
+            .toList();
     }
 }

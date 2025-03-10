@@ -1,5 +1,7 @@
 package com.projetecam.diary.core;
 
+import java.time.LocalDate;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateArticleDTO {
+    private LocalDate date;
     private Integer type;
     private String headline;
     private String subHeadline1;
