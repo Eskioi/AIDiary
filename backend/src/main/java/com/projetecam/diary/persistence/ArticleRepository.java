@@ -14,11 +14,11 @@ import com.projetecam.diary.entity.Article;
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
     @Query("""
-       SELECT a 
-       FROM Article a 
+       SELECT a
+       FROM Article a
        WHERE (
-           :query IS NULL 
-           OR LOWER(a.date) LIKE LOWER(CONCAT('%', :date, '%')) 
+           :query IS NULL
+           OR LOWER(a.date) LIKE LOWER(CONCAT('%', :date, '%'))
            OR LOWER(a.headline) LIKE LOWER(CONCAT('%', :query, '%'))
        )
        """)

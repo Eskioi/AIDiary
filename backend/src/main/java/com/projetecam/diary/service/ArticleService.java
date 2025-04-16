@@ -16,8 +16,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 
 public class ArticleService {
-    private final ArticleRepository articleRepository;
-    private final AuthenticationService authenticationService;
+    private ArticleRepository articleRepository;
+    private AuthenticationService authenticationService;
 
     public List<ArticleDTO> search(String query, String headline, LocalDate date){
         return articleRepository.search(query, headline, date)

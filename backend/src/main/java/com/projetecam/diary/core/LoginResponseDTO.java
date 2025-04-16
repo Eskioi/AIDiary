@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class LoginResponseDTO {
-    private final String jwtToken;
+    private String jwtToken;
 }

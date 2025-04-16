@@ -15,8 +15,8 @@ public class DataFixtureElements implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        userService.register(new RegisterRequestDTO("test-user-1", "test-user-1@floodaid.jku.at", "SuperSecretPassword!"));
-        userService.register(new RegisterRequestDTO("test-user-2", "test-user-2@floodaid.jku.at", "SuperSecretPassword!"));
-        userService.register(new RegisterRequestDTO("test-user-3", "test-user-3@floodaid.jku.at", "SuperSecretPassword!"));
+        userService.register(new RegisterRequestDTO("test-user-1", "test-user-1@mailbox.com", "SuperSecretPassword!"));
+        userService.register(new RegisterRequestDTO("test-user-2", "test-user-2@mailbox.com", "SuperSecretPassword!"));
+        userService.register(new RegisterRequestDTO("test-user-3", "test-user-3@mailbox.com", "SuperSecretPassword!"));
     }
 }
