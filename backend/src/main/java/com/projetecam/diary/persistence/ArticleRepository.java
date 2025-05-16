@@ -17,14 +17,12 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
        SELECT a
        FROM Article a
        WHERE (
-           :query IS NULL
-           OR LOWER(a.date) LIKE LOWER(CONCAT('%', :date, '%'))
-           OR LOWER(a.headline) LIKE LOWER(CONCAT('%', :query, '%'))
+           (:query IS NULL OR LOWER(a.headline) LIKE LOWER(CONCAT('%', :query, '%')))
+           AND (:date IS NULL OR a.date = :date)
        )
        """)
-    List<Article> search(@Param("query") String query,
-                                    @Param("headline") String headline,
-                                    @Param("date") LocalDate date);
+        List<Article> search(@Param("query") String query,
+                             @Param("date") LocalDate date);
 
     Optional<Article> findByIdAndCreatorUserId(long creatorUserId, Long id);
     List<Article> findByCreatorUserId(long creatorUserId);

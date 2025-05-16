@@ -2,8 +2,10 @@ package com.projetecam.diary.core;
 
 import java.time.LocalDate;
 import lombok.Data;
+import lombok.AllArgsConstructor;
 
 @Data
+@AllArgsConstructor
 public class ArticleDTO {
     private long id;
     private long creatorUserId;

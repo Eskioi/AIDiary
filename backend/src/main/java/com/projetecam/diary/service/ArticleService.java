@@ -14,59 +14,58 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-
 public class ArticleService {
-    private ArticleRepository articleRepository;
-    private AuthenticationService authenticationService;
+    private final ArticleRepository articleRepository;  // Make it final
+    private final AuthenticationService authenticationService;  // Make it final
 
-    public List<ArticleDTO> search(String query, String headline, LocalDate date){
-        return articleRepository.search(query, headline, date)
-            .stream()
-            .map(this::convertToArticleDto)
-            .toList();
+    public List<ArticleDTO> search(String query, LocalDate date) {
+        return articleRepository.search(query, date)
+                .stream()
+                .map(this::convertToArticleDto)
+                .toList();
     }
 
-    public ArticleDTO get(long id){
+    public ArticleDTO get(long id) {
         Article article = articleRepository.findById(id).orElseThrow();
         return convertToArticleDto(article);
     }
 
-    public ArticleDTO create(CreateArticleDTO createArticleDTO){
+    public ArticleDTO create(CreateArticleDTO createArticleDTO) {
         Article article = new Article(null, authenticationService.currentUserId(),
-            createArticleDTO.getDate(),
-            createArticleDTO.getType(),
-            createArticleDTO.getHeadline(),
-            createArticleDTO.getSubHeadline1(),
-            createArticleDTO.getText1(),
-            createArticleDTO.getSubHeadline2(),
-            createArticleDTO.getText2(),
-            createArticleDTO.getSubHeadline3(),
-            createArticleDTO.getText3());
-        
+                createArticleDTO.getDate(),
+                createArticleDTO.getType(),
+                createArticleDTO.getHeadline(),
+                createArticleDTO.getSubHeadline1(),
+                createArticleDTO.getText1(),
+                createArticleDTO.getSubHeadline2(),
+                createArticleDTO.getText2(),
+                createArticleDTO.getSubHeadline3(),
+                createArticleDTO.getText3());
+
         Article savedArticle = articleRepository.save(article);
         return convertToArticleDto(savedArticle);
     }
 
-    private ArticleDTO convertToArticleDto(Article article){
+    private ArticleDTO convertToArticleDto(Article article) {
         return new ArticleDTO(article.getId(),
-            article.getCreatorUserId(),
-            article.getDate(),
-            article.getType(),
-            article.getHeadline(),
-            article.getSubHeadline1(),
-            article.getText1(),
-            article.getSubHeadline2(),
-            article.getText2(),
-            article.getSubHeadline3(),
-            article.getText3());
+                article.getCreatorUserId(),
+                article.getDate(),
+                article.getType(),
+                article.getHeadline(),
+                article.getSubHeadline1(),
+                article.getText1(),
+                article.getSubHeadline2(),
+                article.getText2(),
+                article.getSubHeadline3(),
+                article.getText3());
     }
 
     public List<ArticleDTO> getUserArticleDTOs() {
         Long currentUserId = authenticationService.currentUserId();
-        
+
         return articleRepository.findByCreatorUserId(currentUserId)
-            .stream()
-            .map(this::convertToArticleDto)
-            .toList();
+                .stream()
+                .map(this::convertToArticleDto)
+                .toList();
     }
 }

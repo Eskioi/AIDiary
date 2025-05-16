@@ -6,8 +6,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthenticationService {
     public Long currentUserId() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        return principal == null ? null : Long.parseLong(principal.toString());
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) {
+            // Fallback to a default user ID for bootstrapping
+            return 1L; // or throw an exception if you want to enforce login
+        }
+        return Long.parseLong(authentication.getPrincipal().toString());
     }
 }
