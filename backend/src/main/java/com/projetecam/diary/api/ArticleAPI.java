@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("help-request")
+@RequestMapping("article")
 @RequiredArgsConstructor
 
 public class ArticleAPI {
@@ -25,5 +25,15 @@ public class ArticleAPI {
     @GetMapping("{id}")
     public ArticleDTO get(@PathVariable("id") long id){
         return articleService.get(id);
+    }
+
+    @GetMapping("user/{id}")
+    public List<ArticleDTO> getUsersArticles(@PathVariable Long id){
+        return articleService.getUserArticleDTOs();
+    }
+
+    @PostMapping
+    public ArticleDTO create(@RequestBody CreateArticleDTO createArticleDTO){
+        return articleService.create(createArticleDTO);
     }
 }

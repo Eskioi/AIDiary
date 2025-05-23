@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ArticleService {
+
     private final ArticleRepository articleRepository;  // Make it final
     private final AuthenticationService authenticationService;  // Make it final
 
