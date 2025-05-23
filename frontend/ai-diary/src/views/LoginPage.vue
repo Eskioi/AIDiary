@@ -1,12 +1,12 @@
 <template>
-    <div>
-      <h1>Login page
-      </h1>
-    </div>
-  </template>
+  <div>
+    <h1>Login page
+    </h1>
+  </div>
+</template>
   
-  <script setup>
-  </script>
+<script setup>
+</script>
   
-  <style scoped>
-  </style>
+<style scoped>
+</style>

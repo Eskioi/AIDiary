@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomePage from '@/views/HomePage.vue';
 import SelectionPage from '@/views/SelectionPage.vue';
 import LoginPage from '@/views/LoginPage.vue';
+import UserPage from '@/views/UserPage.vue';
 
 const routes = [
   {
@@ -13,6 +14,11 @@ const routes = [
     path: '/Selection',
     name: 'article_selection',
     component: SelectionPage,
+  },
+  {
+    path: '/User',
+    name: 'user',
+    component: UserPage,
   },
   {
     path: '/Login',

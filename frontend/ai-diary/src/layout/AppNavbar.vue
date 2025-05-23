@@ -7,9 +7,9 @@
     <transition name="slide-fade">
       <nav v-if="showNavbar" class="navbar">
         <div class="navbar-top-container">
-          <a href="#">
+          <router-link to="/User" @click="toggleNavbar">
             <i class="fas fa-user"></i> Profile
-          </a>
+          </router-link>
           <a href="#">
             <i class="fas fa-book-open"></i> Browse articles
           </a>
