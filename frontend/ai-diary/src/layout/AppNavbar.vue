@@ -10,17 +10,21 @@
           <router-link to="/User" @click="toggleNavbar">
             <i class="fas fa-user"></i> Profile
           </router-link>
-          <a href="#">
+          <router-link to="/Browse" @click="toggleNavbar">
             <i class="fas fa-book-open"></i> Browse articles
-          </a>
-          <a href="#">
+          </router-link>
+          <router-link to="/MyArticles" @click="toggleNavbar">
             <i class="fas fa-file-alt"></i> My articles
-          </a>
+          </router-link>
         </div>
+
         <div class="navbar-bottom-container">
-          <a href="#">
+          <a v-if="auth.isAuthenticated" href="#" @click="logout">
             <i class="fas fa-sign-out-alt"></i> Disconnect
           </a>
+          <router-link v-else to="/login" @click="toggleNavbar">
+            <i class="fas fa-sign-in-alt"></i> Login / Register
+          </router-link>
         </div>
       </nav>
     </transition>
@@ -28,22 +32,37 @@
 </template>
 
 <script>
+import { ref } from 'vue';
+import { useAuthStore } from '@/stores/auth';
+
 export default {
-  name: "AppNavbar",
-  data() {
-    return {
-      showNavbar: false
+  name: 'AppNavbar',
+  setup() {
+    const showNavbar = ref(false); // ✅ Make it reactive
+    const auth = useAuthStore();
+
+    const toggleNavbar = () => {
+      showNavbar.value = !showNavbar.value;
     };
-  },
-  methods: {
-    toggleNavbar() {
-      this.showNavbar = !this.showNavbar;
-    }
+
+    const logout = () => {
+      auth.logout();
+      showNavbar.value = false;
+    };
+
+    return {
+      auth,
+      showNavbar,
+      toggleNavbar,
+      logout
+    };
   }
 };
 </script>
 
+
 <style scoped>
+/* Styles unchanged (same as yours) */
 .hamburger-btn {
   position: fixed;
   top: 30px;
@@ -60,36 +79,19 @@ export default {
   cursor: pointer;
   padding: 8px;
   border-radius: 8px;
-  z-index: 1100; /* higher than navbar */
+  z-index: 1100;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
-
 .hamburger-btn:hover {
   background-color: #afafaf;
   transform: scale(1.1);
 }
-
 .hamburger-btn .line {
   width: 24px;
   height: 4px;
   background: black;
   border-radius: 2px;
 }
-
-/* Button when navbar is closed (fixed to screen corner) */
-.fixed-btn {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-}
-
-/* Button inside the navbar (positioned in corner of navbar) */
-.inside-btn {
-  align-self: flex-end;
-  margin-bottom: 20px;
-}
-
-/* Rounded and floating navbar */
 .navbar {
   position: fixed;
   right: 20px;
@@ -104,40 +106,31 @@ export default {
   flex-direction: column;
   z-index: 1000;
 }
-
 .navbar-top-container {
   margin-top: 40px;
 }
-
 .navbar-bottom-container {
-  margin-top: auto; /* This pushes it to the bottom */
+  margin-top: auto;
 }
-
-.navbar-bottom-container a:hover {
-  background-color: #afafaf;
-  color: black;
-  transform: scale(1.05);
-}
-
 .navbar-top-container a,
-.navbar-bottom-container a {
+.navbar-bottom-container a,
+.navbar-bottom-container router-link {
   display: block;
   padding: 10px 15px;
   color: black;
   text-decoration: none;
   border-radius: 8px;
-  font-size: 1.2rem; /* <-- increase this value as needed */
+  font-size: 1.2rem;
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
   margin-bottom: 8px;
 }
-
-.navbar-top-container a:hover {
+.navbar-top-container a:hover,
+.navbar-bottom-container a:hover,
+.navbar-bottom-container router-link:hover {
   background-color: #afafaf;
   color: black;
-  transform: scale(1.05); /* slightly bigger on hover */
+  transform: scale(1.05);
 }
-
-/* Transition classes */
 .slide-fade-enter-active,
 .slide-fade-leave-active {
   transition: all 0.4s ease;
@@ -152,5 +145,4 @@ export default {
   opacity: 1;
   transform: translateX(0);
 }
-
 </style>

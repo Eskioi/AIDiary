@@ -3,6 +3,7 @@ import HomePage from '@/views/HomePage.vue';
 import SelectionPage from '@/views/SelectionPage.vue';
 import LoginPage from '@/views/LoginPage.vue';
 import UserPage from '@/views/UserPage.vue';
+import BrowsePage from '@/views/BrowsePage.vue';
 
 const routes = [
   {
@@ -19,6 +20,11 @@ const routes = [
     path: '/User',
     name: 'user',
     component: UserPage,
+  },
+    {
+    path: '/Browse',
+    name: 'browse',
+    component: BrowsePage,
   },
   {
     path: '/Login',
