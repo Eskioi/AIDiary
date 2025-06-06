@@ -22,7 +22,7 @@ public class UserService {
     public LoginResponseDTO login(LoginRequestDTO loginRequestDto) {
         User user = userRepository.findByEmail(loginRequestDto.getEmail()).orElseThrow();
         if (passwordEncoder.matches(loginRequestDto.getPassword(), user.getPassword())) {
-            return new LoginResponseDTO(jwtUtil.generateToken(user.getId()));
+            return  new LoginResponseDTO(jwtUtil.generateToken(user.getId()));
         } else {
             throw new RuntimeException("Username or password is incorrect");
         }
