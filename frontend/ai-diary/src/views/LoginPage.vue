@@ -48,6 +48,9 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+
+const auth = useAuthStore()
 
 const router = useRouter()
 
@@ -95,6 +98,7 @@ const handleLogin = async () => {
 
     // ✅ Save JWT token
     localStorage.setItem('token', data.token)
+    auth.login(email.value)
 
     // ⏩ Redirect after successful login
     router.push('/dashboard')
